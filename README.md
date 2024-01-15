@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="img/AbstrakTS_logo.svg" alt="AbstrakTS Logo">
+</p>
+
 # **AbstrakTS**
 
 Welcome to AbstrakTS, and get ready for time series forecasting.
