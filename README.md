@@ -10,6 +10,17 @@ The mathematical framework of ATS is inspired by a technique in time series anal
 
 ATS uses well-known machine learning libraries implemented in its architecture such as linear regression from Scikit-Learn as well as ANN (Artificial Neural Network) and LSTM (Long Short-Term Memory) from Keras.
 
+## **Technical Documentation**
+
+A comprehensive techincal documentation for this project is hosted on Research Gate. Formal mathematical frameworks underlining the algorithms within AbstrakTS are presented in the documentation.
+Please visit the following link to access the full documentation:
+
+[AbstrakTS Documentation](https://www.researchgate.net/publication/377412345_AbstrakTS_Empowering_Time_Series_Forecasting_with_Advanced_Machine_Learning_in_Python)
+
+Don't forget to cite the documentation of AbstrakTS whenever you use it in your projects.
+
+DOI: [10.13140/RG.2.2.27526.75840](http://dx.doi.org/10.13140/RG.2.2.27526.75840)
+
 ## **Contributors**
 
 Currently, the sole contributor of AbstrakTS and project Abstrak as a whole is Rizal Purnawan.
