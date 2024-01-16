@@ -39,7 +39,7 @@ Currently, the sole module in `abstrakTS` is `AbstrakTS`, a Python class contain
 ```
 2. Then import `AbstrakTS` using the following command:
 ```
-from abstrakTS import AbstrakTS
+from abstrakTS.abstrakTS import AbstrakTS
 ```
 
 ## **License**
