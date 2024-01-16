@@ -5,7 +5,7 @@ Title                   : 'abstrakTS'
 Type                    : Python Module
 Developer               : Rizal Purnawan
 Date of first creation  : 2024-01-09
-Update                  : 2024-01-15
+Update                  : 2024-01-16
 
 Description
 -----------
@@ -19,6 +19,7 @@ This module is part of project Abstrak.
 
 # REQUIRED LIBRARIES
 # ------------------
+from random import randint
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -1229,3 +1230,36 @@ class AbstrakTS:
             raise ValueError
 
         return model, score
+    
+    # ---------------------------------------------------------------
+    # WHITE NOISE WEAKNESS
+    def white_noise_weakness(self, nu, w):
+        """
+        Title       : 'white_noise_weakness'
+        Type        : Instance Method
+        Developer   : Rizal Purnawan
+
+        Description
+        -----------
+        This function compute the weakness level of white noise based
+        on the weak white noise theory presented in the technical
+        framework of AbstrakTS. The function returns the triple
+        (delta1, delta2, delta3).
+        """
+        d1 = np.mean(nu)
+        d2 = (
+            max(self.moving_variance(nu, w))
+            - min(self.moving_variance(nu, w))
+        )
+        corr = list()
+        nu_series = pd.Series(nu)
+        # We will only sampling the autocorrelation for the first
+        # 30% of the lags:
+        for j in range(1, int(0.3 *len(nu))):
+            lag = self.kappa(j, nu_series)
+            nu_lag = pd.concat([nu_series, lag], axis= 1)
+            nu_lag.columns = ["nu", "lag"]
+            nu_lag = nu_lag.dropna()
+            corr.append(self.corr(nu_lag["nu"], nu_lag["lag"]))
+        d3 = max(corr)
+        return (d1, d2, d3)
