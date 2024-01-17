@@ -5,7 +5,7 @@ Title                   : 'abstrakTS'
 Type                    : Python Module
 Developer               : Rizal Purnawan
 Date of first creation  : 2024-01-09
-Update                  : 2024-01-16
+Update                  : 2024-01-17
 
 Description
 -----------
@@ -923,6 +923,7 @@ class AbstrakTS:
 
         loss = list()
         val_loss = list()
+        combination = list()
         cycle = list()
         for c in range(1, max_cycle + 1):
             X_train = self.Theta(ts_train.index, n_cycle= c, L= L)
@@ -938,7 +939,7 @@ class AbstrakTS:
                     list(y_train), list(y_pre)
                 )
                 val_score = self.mean_absolute_error(
-                    list(y_valid, y_val)
+                    list(y_valid), list(y_val)
                 )
             elif metric == "r-norm2":
                 loss_score = self.r_norm2(
@@ -947,22 +948,22 @@ class AbstrakTS:
                 val_score = self.r_norm2(
                     list(y_valid), list(y_val)
                 )
+            
+            comb = np.mean([loss_score, val_score])
 
-            # mae = np.mean(
-            #     [abs(a - b) for a, b in zip(list(y_pre), list(y_train))]
-            # )
-            # val_mae = np.mean(
-            #     [abs(a - b) for a, b in zip(list(y_valid), list(y_val))]
-            # )
             loss.append(loss_score)
             val_loss.append(val_score)
+            combination.append(comb)
             cycle.append(c)
         loss_cycle = dict(zip(loss, cycle))
         val_loss_cycle = dict(zip(val_loss, cycle))
+        comb_cycle = dict(zip(combination, cycle))
         if monitor == "loss":
             n_cycle = loss_cycle[min(loss)]
         elif monitor == "val_loss":
             n_cycle = val_loss_cycle[min(val_loss)]
+        elif monitor == "combine":
+            n_cycle = comb_cycle[min(combination)]
         X_train = self.Theta(
             ts_train.index, n_cycle= n_cycle, L= L
             )
