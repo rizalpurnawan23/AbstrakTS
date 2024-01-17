@@ -899,7 +899,8 @@ class AbstrakTS:
 
     # WAVE MODEL ('psi')
     def psi_model(
-            self, ts, max_cycle, valid_index, monitor= "val_loss"
+            self, ts, max_cycle, valid_index,
+            monitor= "val_loss", metric= "mae"
             ):
         """
         Title       : 'wave_model'
@@ -932,14 +933,29 @@ class AbstrakTS:
             y_pre = model.predict(X_train)
             y_val = model.predict(X_valid)
 
-            mae = np.mean(
-                [abs(a - b) for a, b in zip(list(y_pre), list(y_train))]
-            )
-            val_mae = np.mean(
-                [abs(a - b) for a, b in zip(list(y_valid), list(y_val))]
-            )
-            loss.append(mae)
-            val_loss.append(val_mae)
+            if metric == "mae":
+                loss_score = self.mean_absolute_error(
+                    list(y_train), list(y_pre)
+                )
+                val_score = self.mean_absolute_error(
+                    list(y_valid, y_val)
+                )
+            elif metric == "r-norm2":
+                loss_score = self.r_norm2(
+                    list(y_train), list(y_pre)
+                )
+                val_score = self.r_norm2(
+                    list(y_valid), list(y_val)
+                )
+
+            # mae = np.mean(
+            #     [abs(a - b) for a, b in zip(list(y_pre), list(y_train))]
+            # )
+            # val_mae = np.mean(
+            #     [abs(a - b) for a, b in zip(list(y_valid), list(y_val))]
+            # )
+            loss.append(loss_score)
+            val_loss.append(val_score)
             cycle.append(c)
         loss_cycle = dict(zip(loss, cycle))
         val_loss_cycle = dict(zip(val_loss, cycle))
