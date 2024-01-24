@@ -6,9 +6,9 @@ setup(
     packages=find_packages(),
     install_requires=[
         'numpy>=1.23.5',
-        'pandas>=2.0.3',
-        'matplotlib>=3.7.4',
-        'plotly>=5.16.1',
+        'pandas>=1.5.3',
+        'matplotlib>=3.7.1',
+        'plotly>=5.15.0',
         'scikit-learn>=1.2.2',
         'tensorflow>=2.10.1'
         ],
